@@ -3,7 +3,8 @@ import UserProfile from './components/UserProfile';
 function App() {
   return (
     <div className="App">
-      <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
+      <h1>Counter Application</h1>
+      <Counter />
     </div>
   );
 }
