@@ -1,4 +1,3 @@
-// src/components/PostsComponent.jsx
 import React from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
@@ -10,8 +9,13 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // Use React Query's useQuery hook to fetch data
-  const { data, isLoading, isError, error, refetch } = useQuery('posts', fetchPosts);
+  // Use React Query's useQuery hook to fetch data with additional options
+  const { data, isLoading, isError, error, refetch } = useQuery('posts', fetchPosts, {
+    cacheTime: 5 * 60 * 1000, // Cache data for 5 minutes
+    staleTime: 1 * 60 * 1000, // Data is considered fresh for 1 minute
+    refetchOnWindowFocus: false, // Disable refetching on window focus
+    keepPreviousData: true, // Keep previous data while fetching new data
+  });
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>An error occurred: {error.message}</p>;
