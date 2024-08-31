@@ -10,7 +10,7 @@ test('renders initial todos', () => {
 });
 
 test('adds a new todo', () => {
-  render(<TodoList />);
+  render(<TodoList/>);
   const input = screen.getByPlaceholderText(/add a new todo/i);
   const addButton = screen.getByText(/add todo/i);
 
