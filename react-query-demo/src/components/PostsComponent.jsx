@@ -11,10 +11,10 @@ const fetchPosts = async () => {
 
 const PostsComponent = () => {
   // Use React Query's useQuery hook to fetch data
-  const { data, isLoading, error, refetch } = useQuery('posts', fetchPosts);
+  const { data, isLoading, isError, error, refetch } = useQuery('posts', fetchPosts);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>An error occurred: {error.message}</p>;
+  if (isError) return <p>An error occurred: {error.message}</p>;
 
   return (
     <div>
