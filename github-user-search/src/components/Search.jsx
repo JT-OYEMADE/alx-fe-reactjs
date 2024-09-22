@@ -7,6 +7,16 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Move fetchUserData into Search component
+  const fetchUserData = async (username) => {
+    try {
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const handleInputChange = (e) => {
     setUsername(e.target.value);
   };
@@ -15,16 +25,15 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setUserData(null);  // Reset user data on new search
+    setUserData(null);
 
     try {
-      // Fetch user data from GitHub API
-      const response = await axios.get(`https://api.github.com/users/${username}`);
-      setUserData(response.data);  // Store the user data in state
+      const data = await fetchUserData(username); // Call the fetchUserData function
+      setUserData(data);
     } catch (err) {
       setError('Looks like we cant find the user.');
     } finally {
-      setLoading(false);  // Turn off loading indicator
+      setLoading(false);
     }
   };
 
@@ -40,11 +49,9 @@ const Search = () => {
         <button type="submit">Search</button>
       </form>
 
-      {/* Conditional Rendering */}
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      {/* Display user data if available */}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
