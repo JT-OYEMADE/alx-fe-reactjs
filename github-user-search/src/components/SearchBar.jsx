@@ -7,20 +7,23 @@ const SearchBar = ({ onSearch }) => {
     setUsername(e.target.value);
   };
 
-  const handleSearch = () => {
-    onSearch(username);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username.trim()) {
+      onSearch(username);
+    }
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Search GitHub Users"
+        placeholder="Enter GitHub username"
         value={username}
         onChange={handleInputChange}
       />
-      <button onClick={handleSearch}>Search</button>
-    </div>
+      <button type="submit">Search</button>
+    </form>
   );
 };
 
