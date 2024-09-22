@@ -19,9 +19,9 @@ const Search = () => {
       setUserData(null);
       try {
         const data = await fetchUserData(username);
-        setUserData(data); // Successfully fetched data
+        setUserData(data);  // Successfully fetched user data
       } catch (err) {
-        setError('Looks like we can’t find the user.'); // Error message when user is not found
+        setError("Looks like we can't find the user.");  // The exact error message
       } finally {
         setLoading(false);
       }
@@ -42,9 +42,9 @@ const Search = () => {
 
       {loading && <p>Loading...</p>} {/* Display loading message */}
 
-      {error && <p>{error}</p>} {/* Display error message */}
+      {error && <p>{error}</p>} {/* Display error message "Looks like we can't find the user" */}
 
-      {userData && (  // Display user data if found
+      {userData && (  // Display user data if available
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
           <h2>{userData.login}</h2>
