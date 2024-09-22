@@ -1,3 +1,4 @@
+// src/components/Search.jsx
 import React, { useState } from 'react';
 import { fetchUserData } from '../services/githubService';
 
@@ -16,14 +17,15 @@ const Search = () => {
     if (username.trim()) {
       setLoading(true);
       setError('');
-      setUserData(null);
+      setUserData(null);  // Reset previous user data
+
       try {
         const data = await fetchUserData(username);
         setUserData(data);  // Successfully fetched user data
       } catch (err) {
-        setError("Looks like we can't find the user.");  // The exact error message
+        setError("Looks like we can't find the user.");  // Display the error message
       } finally {
-        setLoading(false);
+        setLoading(false);  // Stop loading after API call
       }
     }
   };
@@ -40,11 +42,11 @@ const Search = () => {
         <button type="submit">Search</button>
       </form>
 
-      {loading && <p>Loading...</p>} {/* Display loading message */}
+      {loading && <p>Loading...</p>}  {/* Display loading state */}
 
-      {error && <p>{error}</p>} {/* Display error message "Looks like we can't find the user" */}
+      {error && <p>{error}</p>}  {/* Display error message */}
 
-      {userData && (  // Display user data if available
+      {userData && (  // Display user data if found
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
           <h2>{userData.login}</h2>
